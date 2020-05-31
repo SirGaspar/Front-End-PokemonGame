@@ -1,0 +1,27 @@
+<div class="marketContainer">
+    <div class="marketContent">
+        <div class="closeBtn" (click)="closeMarket()"><i class="material-icons">clear</i></div>
+        <div class="itemsContainer">
+            <div class="itemsContent">
+                <div class="buyContainer">
+                    <div class="title">Comprar</div>
+                    <div *ngFor="let item of marketService.getSelectedModeItems()" class="item">
+                        <div class="itemPicture">
+                            <img src="../../assets/img/items/{{backpackService.getItemById(item.itemId)?.itemSprite}}.png" alt="">
+                        </div>
+                        <span class="itemName">{{ backpackService.getItemById(item.itemId)?.itemName }}</span>
+                        <!-- <span class="itemName">{{ backpackService.getItemById(item.itemId).itemName }}</span> -->
+                    </div>
+                </div>
+                <div class="sellContainer">
+                    <div class="title">Vender</div>
+                    <div *ngFor="let item of marketService.getSelectedModeItems()">
+                        <div>
+                            {{ backpackService.getItemById(item.itemId).itemName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

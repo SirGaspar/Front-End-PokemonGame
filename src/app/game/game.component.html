@@ -1,0 +1,19 @@
+<div class="gameComponent">
+  <app-market></app-market>
+  <app-player></app-player>
+  <app-log-chat style="z-index: 2;"></app-log-chat>
+  <div class="mainComponent">
+    <app-map [listener]="activeListener"></app-map>
+    <router-outlet (deactivate)="closed($event)"></router-outlet>
+    <div class="transitionPokeball">
+      <div class="sidePokeball" id="bottomPokeball"></div>
+      <div class="sidePokeball" id="topPokeball">
+          <div class="externBall">
+              <div class="internBall">
+                <div class="internCircle"></div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

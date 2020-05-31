@@ -1,0 +1,13 @@
+<div class="loginComponent">
+  <div class="backgroundImage"></div>
+  <div class="loginArea">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png" alt="">
+    <div class="inputArea">
+        <input type="text" class="email" [(ngModel)]="email">
+        <input type="text" class="password" [(ngModel)]="password">
+        <div (click)="login()" class="loginBtn"><span style="pointer-events: none;">ENTRAR</span></div>
+    </div>
+  </div>
+  <span class="version">v.1.0.0.0</span>
+</div>
+

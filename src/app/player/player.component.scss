@@ -1,0 +1,609 @@
+.playerComponent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100vh;
+    width: 30vh;
+    background: rgb(0,0,0);
+    background: linear-gradient(157deg, rgba(0,0,0,1) 0%, rgba(102,125,136,1) 46%, rgba(0,0,0,1) 100%);
+    .playerInfos {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5%;
+        .playerName {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 5%;
+        }
+        img {
+            height: 2.7vh;
+            margin-right: 0.8vh;
+            &#playerImg {
+                height: 4vh;  
+                margin-right: 0vh;
+            }
+        }
+        .infoArea {
+            margin-top: 5%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            div {
+                display: flex;
+                -webkit-box-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                align-items: center;
+                color: white;
+                font-weight: 600;
+                font-size: 1.5vh;
+                width: 35%;
+            }
+        }
+    }
+    .playerMenu {
+        display: flex;
+        margin-top: 1vh;
+        .menuItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 33.33%;
+            height: 3.5vh;
+            background-color: #4d5e66;
+            cursor: pointer;
+            &:hover {
+                background-color: #3a4d56;
+            }
+            &.selected {
+                background-color: #2d3e46;
+                &:hover {
+                    background-color: #2d3e46;
+                }
+            }
+            img {
+                width: 2.7vh;
+            }
+        }
+    }
+    .pokemonInfo {
+        width: 100%;
+        height: fit-content;
+        .pokeFrameContent {
+            display: flex;
+            flex-wrap: wrap;
+            .pokeFrame {
+                position: relative;
+                width: calc(100%/3 - 10%);
+                padding-bottom: calc(100%/3 - 10%);
+                height: 0;
+                margin: 5%;
+                -webkit-box-shadow: 0px 0px 13px -5px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 13px -5px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 13px -5px rgba(0,0,0,0.75);
+                cursor: pointer;
+                img {
+                    width: 100%;
+                    &.faint {
+                        filter: grayscale(100%);
+                    }
+                }
+                .pokeLevel {
+                    position: absolute;
+                    bottom: -10px;
+                    right: -10px;
+                    width: 35%;
+                    height: 0;
+                    padding-bottom: 35%;
+                    background-color: #3a4d56;
+                    border-radius: 100%;
+                    color: white;
+                    font-weight: 500;
+                    display: flex;
+                    justify-content: center;
+                    span {
+                        margin-top: 0.4vh;
+                        font-size: 1.2vh;
+                    }
+                }
+                &:hover {
+                    background-color: #3a4d56;
+                }
+            }
+        }
+    }
+    .contentArea {
+        height: 30vh;
+        .backpackContainer {
+            height: 100%;
+            .backpackMenu {
+                display: flex;
+                height: 2.5vh;
+                .menuItem {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 25%;
+                    background-color: #4d5e66;
+                    color: white;
+                    font-size: 1.4vh;
+                    font-weight: 500;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #3a4d56;
+                    }
+                    &.selected {
+                        border-bottom: 1.5px solid #6b7c84;
+                        &:hover {
+                            background-color: #4d5e66;
+                        }
+                    }
+                    span {
+                        pointer-events: none;
+                    }
+                }
+            }
+            .backpackContent {
+                height: calc(100% - 3.5vh);
+                background-color: #2d3e46;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: baseline;
+                align-content: flex-start;
+                padding: 0.5vh;
+                overflow: auto;
+                .backpackItem {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #00000040;
+                    border-radius: 100%;
+                    height: 4.4vh;
+                    width: 4.4vh;
+                    margin: 0.65vh;
+                    position: relative;
+                    cursor: pointer;
+                    img {
+                        width: 65%;
+                        &.disabled {
+                            filter: grayscale(100%);
+                        }
+                    }
+                    .number {
+                        position: absolute;
+                        bottom: -0.5vh;
+                        color: white;
+                        font-size: 1.2vh;
+                    }
+                    &.equipment {
+                        border: 1px solid #c5c5c5;
+                        &.Uncommon { 
+                            border: 1px solid #5d8df7;
+                        }
+                        &.Rare { 
+                            border: 1px solid #cedc00; 
+                        }
+                        &.Legendary { 
+                            border: 1px solid #f98644;
+                        }
+                        &.Mythical { 
+                            border: 1px solid #e058fc;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .pokemonInfoContainer, .itemInfoContainer {
+        height: 100vh;
+        width: calc(100% - 30vh);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        margin-left: 300px;
+        background-color: transparent;
+        z-index: 20;
+        display: none;
+        .infoContainer {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 30vh;
+            right: 0;
+            margin: auto;
+            height: 36vh;
+            width: 70vh;
+            border-radius: 1vh;
+            background: #2d3e46;
+            border: 3px solid #c5c5c5;
+            .pokemonQuality, .ivMainInfo {
+                width: fit-content;
+                background-color: #c5c5c5;
+                padding: 1vh 3vh 1vh 2vh;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-bottom-right-radius: 2vh;
+                font-weight: 600;
+            }
+            .ivMainInfo {
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 2vh;
+                top: 0;
+                left: auto;
+                right: 0;
+            }
+            &.Uncommon { 
+                border: 3px solid #5d8df7;
+                .pokemonQuality, .ivMainInfo {
+                    background-color: #5d8df7;
+                }
+            }
+            &.Rare { 
+                border: 3px solid #cedc00; 
+                .pokemonQuality, .ivMainInfo {
+                    background-color: #cedc00;
+                }
+            }
+            &.Legendary { 
+                border: 3px solid #f98644;
+                .pokemonQuality, .ivMainInfo {
+                    background-color: #f98644;
+                }
+            }
+            &.Mythical { 
+                border: 3px solid #e058fc;
+                .pokemonQuality, .ivMainInfo {
+                    background-color: #e058fc;
+                }
+            }
+            .pokemonPictureContainer {
+                position: absolute;
+                top: 4vh;
+                left: 1vh;
+                width: 28vh;
+                height: 28vh;
+                img {
+                    width: 90%;
+                    height: 90%;
+                    margin-top: 8%;
+                    margin-left: 5%;
+                }
+            }
+            .infoContent {
+                position: absolute;
+                top: 1vh;
+                right: 1vh;
+                width: 39vh;
+                height: 33vh;
+                border-left: 2px solid #21282b;
+                .titleInfo {
+                    margin-top: 1vh;
+                    margin-left: 1vh;
+                    color: white;
+                    font-size: 15px;
+                    font-weight: 600;
+                }
+                .mainInfo {
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    margin-top: 1vh;
+                    margin-left: 1vh;
+                    color: white;
+                    font-size: 18px;
+                    .statusInfo {
+                        width: 40%;
+                        .iv {
+                            color: yellow;
+                        }
+                    }
+                }
+                .equipmentInfo {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 100%;
+                    .topEquipmentContainer, .middleEquipmentContainer, .bottomEquipmentContainer {
+                        display: flex;
+                        justify-content: center;
+                        .square {
+                            position: relative;
+                            margin: 1%;
+                            width: 5vh;
+                            height: 5vh;
+                            border: 1px solid white;
+                            cursor: pointer;
+                            &:hover {
+                                background-color: rgba(255, 255, 255, 0.288);
+                            }
+                            img {
+                                width: 100%;
+                            }
+                            .removeEquip {
+                                position: absolute;
+                                top: -0.5vh;
+                                right: -0.5vh;
+                                background-color: white;
+                                color: #b70000;
+                                font-size: 20px;
+                                width: 1vh;
+                                height: 1vh;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                        }
+                    }
+                    .topEquipmentContainer {
+                        margin-top: 1vh;
+                        .square {
+                            margin: 1% 4%;
+                        }
+                    }
+                }
+            }
+            .close {
+                position: absolute;
+                cursor: pointer;
+                right: -1vh;
+                top: -1vh;
+                height: 3vh;
+                width: 3vh;
+                background-color: #929aa0;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100px;
+            }
+            .releasePokemon {
+                position: absolute;
+                bottom: 1vh;
+                right: 1vh;
+                color: white;
+                cursor: pointer;
+                font-size: 12px;
+                &:hover {
+                    color: red;
+                }
+            }
+            .releaseContainer {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                position: absolute;
+                width: 50%;
+                height: 10vh;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                background-color: #2d3e46;
+                border: 3px solid #c5c5c5;
+                border-radius: 1vh;
+                color: white;
+                &.Uncommon { 
+                    border: 3px solid #5d8df7;
+                }
+                &.Rare { 
+                    border: 3px solid #cedc00; 
+                }
+                &.Legendary { 
+                    border: 3px solid #f98644;
+                }
+                &.Mythical { 
+                    border: 3px solid #e058fc;
+                }
+                .buttons {
+                    display: flex;
+                    justify-content: space-evenly;
+                    width: 100%;
+                    div {
+                        padding: 0.5vh 2vh;
+                        border-radius: 1000px;
+                        color: white;
+                        font-weight: 600;
+                        font-size: 14px;
+                        cursor: pointer;
+                        &.confirmRelease {
+                            background-color: #9c0000;
+                            &:hover {
+                                background-color: #7a0000; 
+                            }
+                        }
+                        &.cancelRelease {
+                            background-color: grey;
+                            &:hover {
+                                background-color: rgb(100, 100, 100); 
+                            }
+                        }
+                    }
+                }
+                &.hidden {
+                    display: none;;
+                }
+            }
+        }
+    }
+    .itemInfoContainer {
+        .infoContainer {
+            width: 25vh;
+            height: fit-content;
+            padding: 2vh;
+            .itemPicture {
+                height: 20%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                    width: 7vh;
+                }
+            }
+            .itemName {
+                text-align: center;
+                margin: 1vh 0 2vh 0;
+                color: white;
+            }
+            .itemDescription {
+                color: white;
+                text-align: center;
+            }
+            .itemQuantity {
+                position: absolute;
+                top: 2vh;
+                left: 2vh;
+                font-weight: 500;
+                color: white;
+            }
+            .itemRarity {
+                width: fit-content;
+                background-color: #c5c5c5;
+                padding: 0.7vh 2vh 0.7vh 1.5vh;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-bottom-right-radius: 2vh;
+                font-weight: 600;
+                font-size: 14px;
+                &.Uncommon { 
+                    background-color: #5d8df7;
+                }
+                &.Rare { 
+                    background-color: #cedc00; 
+                }
+                &.Legendary { 
+                    background-color: #f98644;
+                }
+                &.Mythical { 
+                    background-color: #e058fc;
+                }
+            }
+            .itemEquipment .allowedPokemons {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                .pokemonAllowed {
+                    position: relative;
+                    width: 5vh;
+                    height: 5vh;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 2px solid #c5c5c5;
+                    margin-top: 3vh;
+                    cursor: pointer;
+                    img {
+                        width: 140%;
+                    }
+                    .pokeLevel {
+                        position: absolute;
+                        bottom: -10px;
+                        right: -10px;
+                        width: 2.2vh;
+                        height: 2.2vh;
+                        background-color: #3a4d56;
+                        border-radius: 100%;
+                        color: white;
+                        font-weight: 500;
+                        display: flex;
+                        -webkit-box-pack: center;
+                        justify-content: center;
+                        align-items: center;
+                        span {
+                            font-size: 1.4vh;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .optionsContainer {
+        position: fixed;
+        top: 0;
+        left: 30vh;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        height: 50vh;
+        width: 35vh;
+        background: #2d3e46;
+        display: none;
+        .optionsMenu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 10%;
+            width: 100%;
+            display: flex;
+            .menuItem {
+                width: 33.33%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #576a74;
+                cursor: pointer;
+                i {
+                    font-size: 3vh;
+                    color: #2d3e46;
+                    pointer-events: none;
+                }
+                &:hover {
+                    background-color: #5b7786;
+                }
+                &.selected {
+                    background-color: #2d3e46;
+                    i {
+                        color: #576a74;
+                    }
+                    &:hover {
+                        cursor: default;
+                    }
+                }
+
+            }
+        }
+        .optionsContent {
+            position: absolute;
+            top: 10%;
+            width: calc(100% - 4vh);
+            height: calc(100% - 10% - 4vh);
+            padding: 2vh;
+        }
+    }
+    .mapContainer {
+        position: fixed;
+        top: 0;
+        left: 30vh;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        height: 65vh;
+        width: fit-content;
+        background: #2d3e46;
+        display: none;
+        padding: 10px;
+        #macroMap {
+            height: 100%;
+        }
+        #marker {
+            position: absolute;
+            height: 8%;
+            left: 0;
+            right: 0;
+        }
+    }
+}

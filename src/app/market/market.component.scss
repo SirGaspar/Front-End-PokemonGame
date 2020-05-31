@@ -1,0 +1,59 @@
+.marketContainer {
+    height: 100vh;
+    width: calc(100% - 30vh);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-left: 300px;
+    background-color: transparent;
+    z-index: 20;
+    display: none;
+    .marketContent {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 30vh;
+        right: 0;
+        margin: auto;
+        height: 65vh;
+        width: 70vh;
+        border-radius: 1vh;
+        background: #2d3e46;
+        border: 3px solid #c5c5c5;
+        .itemsContainer {
+            height: 100%;
+            .itemsContent {
+                display: flex;
+                height: 65%;
+                .buyContainer, .sellContainer {
+                    width: 50%;
+                    padding: 2vh;
+                    border: 1px solid #c5c5c5;
+                    .title {
+                        width: 100%;
+                        text-align: center;
+                    }
+                    .item {
+                        display: flex;
+                        align-items: center;
+                        .itemPicture {
+                            width: 4vh;
+                            height: 4vh;
+                            img {
+                                height: 100%;
+                            }
+                        }
+                        .itemName {
+                            font-size: 14px;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

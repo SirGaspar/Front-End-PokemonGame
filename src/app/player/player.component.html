@@ -1,0 +1,187 @@
+<div class="playerComponent">
+  <div class="playerInfos">
+    <span class="playerName">{{userService.getUserName()}}, lv {{calculatorService.calculateLevel(userService.getUserExp())}}</span>
+    <div class="infoArea">
+      <div (click)="openPokedex()" class="pokedex">
+        <img src="./../../assets/img/pokedexIcon.png" alt="">
+        <span>{{pokedexCaught}}/648</span>
+      </div>
+      <img id="playerImg" src="./../../assets/tilesets/playerBottom.png" alt="">
+      <div class="coins">
+        <img src="./../../assets/img/coinIcon.png" alt="">
+        <span>{{userService.getUserCoins()}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="pokemonInfo">
+    <div class="pokeFrameContent">
+      <div (click)="showPokemonStatus(pokeFrame)" *ngFor="let pokeFrame of pokemonService.getPokemonList()" class="pokeFrame">
+        <img *ngIf="pokeFrame.id != null" [class.faint]="pokeFrame.hp === 0" src="{{pokemonUrlBase}}{{pokeFrame.id}}.png" alt="">
+        <div *ngIf="pokeFrame.id != null" class="pokeLevel"><span>{{pokeFrame.level}}</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="playerMenu">
+    <div class="menuItem selected">
+        <img src="./../../assets/img/bagIcon.png" alt="">
+    </div>
+    <div class="menuItem" (click)="openMap()">
+        <img src="./../../assets/img/mapIcon.png" alt="">
+    </div>
+    <div class="menuItem" (click)="openMenu()">
+        <img src="./../../assets/img/configIcon.png" alt="">
+    </div>
+  </div>
+
+  <div class="contentArea">
+    <div *ngIf="atualContent === 'backpack'" class="backpackContainer">
+      <div class="backpackMenu">
+        <div (click)="changeBackpackCategory('miscellaneous', $event)" class="menuItem selected"><span>Misc.</span></div>
+        <div (click)="changeBackpackCategory('balls', $event)" class="menuItem"><span>Balls</span></div>
+        <div (click)="changeBackpackCategory('consumables', $event)" class="menuItem"><span>Cons.</span></div>
+        <div (click)="changeBackpackCategory('equipments', $event)" class="menuItem"><span>Equip.</span></div>
+      </div>
+      <div class="backpackContent">
+        <div *ngFor="let item of this.backpackService.getBackpack()[selectedItems]" class="backpackItem {{item?.itemType}} {{item?.rarity}}" 
+        title="{{ item?.itemType === 'equipment' ? equipmentTitle(item) : item?.itemName}}" 
+        (click)="item?.itemType === 'pokeball' ? throwBall(item) : openItemInfo(item)">
+          <img [class.disabled]="encounterService.getAnimationRunning()" src="../../assets/img/items/{{(item?.itemSprite)}}.png" alt="">
+          <span class="number">x{{(item?.quantity)}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pokemonInfoContainer">
+    <div class="infoContainer {{pokemonService.getPokemonForInfo()?.rarity}}">
+      <div class="closeBtn" style="top:calc(1vh - 5px)" (click)="closePokeInfo()"><i class="material-icons">clear</i></div>
+      <div class="pokemonQuality">{{pokemonService.getPokemonForInfo()?.rarity}} {{pokemonService.getPokemonForInfo()?.name}} lv {{pokemonService.getPokemonForInfo()?.level}}</div>
+      <div class="ivMainInfo" style="padding: 1vh 5vh 1vh 2vh">IV: {{pokemonService.getIvPercentage()}}%</div>
+      <div class="pokemonPictureContainer">
+        <img src="{{pokemonBigUrlBase}}{{pokemonService.getPokemonForInfo()?.id}}.png" alt="">
+        <div class="typesContent">
+          <!-- <div *ngFor="let type of pokemonService.getPokemonForInfo().name">{{type}}</div> -->
+        </div>
+      </div>
+      <div class="infoContent">
+        <div class="titleInfo">
+          Attributes
+        </div>
+        <div class="mainInfo">
+          <div class="statusInfo">HP: {{pokemonService.getPokemonForInfo()?.hp}} <span class="iv">({{pokemonService.getPokemonForInfo()?.hpIV}})</span></div>
+          <div class="statusInfo">Atk: {{pokemonService.getPokemonForInfo()?.atk}} <span class="iv">({{pokemonService.getPokemonForInfo()?.atkIV}})</span></div>
+          <div class="statusInfo">Def: {{pokemonService.getPokemonForInfo()?.def}} <span class="iv">({{pokemonService.getPokemonForInfo()?.defIV}})</span></div>
+          <div class="statusInfo">SpAtk: {{pokemonService.getPokemonForInfo()?.spAtk}} <span class="iv">({{pokemonService.getPokemonForInfo()?.spAtkIV}})</span></div>
+          <div class="statusInfo">SpDef: {{pokemonService.getPokemonForInfo()?.spDef}} <span class="iv">({{pokemonService.getPokemonForInfo()?.spDefIV}})</span></div>
+          <div class="statusInfo">Speed: {{pokemonService.getPokemonForInfo()?.speed}} <span class="iv">({{pokemonService.getPokemonForInfo()?.speedIV}})</span></div>
+        </div>
+        <div class="equipmentInfo">
+          <div class="titleInfo">
+            Equipments
+          </div>
+          <div class="topEquipmentContainer">
+            <div class="square jewery">
+              <img title="{{pokemonService.getPokemonForInfo()?.jewery?.itemName}}" src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.jewery?.itemSprite}}.png" alt="">
+              <span *ngIf="pokemonService.getPokemonForInfo().jewery" class="material-icons removeEquip">cancel</span>
+            </div>
+            <div class="square helmet">
+              <img title="{{pokemonService.getPokemonForInfo()?.helmet?.itemName}}" src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.helmet?.itemSprite}}.png" alt="">
+              <span *ngIf="pokemonService.getPokemonForInfo().helmet" (click)="removeItem('helmet')" class="material-icons removeEquip">cancel</span>
+            </div>
+            <div class="square pokeball">
+              <img src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.ball}}.png" alt="">
+            </div>
+          </div>
+          <div class="middleEquipmentContainer">
+            <div class="square leftArm">
+              <img title="{{pokemonService.getPokemonForInfo()?.leftArm?.itemName}}" src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.leftArm?.itemSprite}}.png" alt="">
+              <span *ngIf="pokemonService.getPokemonForInfo().leftArm" class="material-icons removeEquip">cancel</span>
+            </div>
+            <div class="square chest">
+              <img title="{{pokemonService.getPokemonForInfo()?.chest?.itemName}}" src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.chest?.itemSprite}}.png" alt="">
+              <span *ngIf="pokemonService.getPokemonForInfo().chest" class="material-icons removeEquip">cancel</span>
+            </div>
+            <div class="square rightArm">
+              <img title="{{pokemonService.getPokemonForInfo()?.rightArm?.itemName}}" src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.rightArm?.itemSprite}}.png" alt="">
+              <span *ngIf="pokemonService.getPokemonForInfo().rightArm" class="material-icons removeEquip">cancel</span>
+            </div>
+          </div>
+          <div class="bottomEquipmentContainer">
+            <div class="square foot">
+              <img title="{{pokemonService.getPokemonForInfo()?.foot?.itemName}}" src="../../assets/img/items/{{pokemonService.getPokemonForInfo()?.foot?.itemSprite}}.png" alt="">
+              <span *ngIf="pokemonService.getPokemonForInfo().foot" class="material-icons removeEquip">cancel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div (click)="openRelease()" class="releasePokemon">
+        Release {{pokemonService.getPokemonForInfo()?.name}}
+      </div>
+      <div class="releaseContainer {{pokemonService.getPokemonForInfo()?.rarity}} hidden">
+        Release {{pokemonService.getPokemonForInfo()?.name}}?
+        <div class="buttons">
+          <div (click)="releasePokemon()" class="confirmRelease">RELEASE</div>
+          <div (click)="closeRelease()" class="cancelRelease">CANCEL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="itemInfoContainer">
+    <div class="infoContainer {{selectedItem?.rarity}}">
+      <div class="closeBtn" (click)="closeItemInfo()"><i class="material-icons">clear</i></div>
+      <div class="itemPicture">
+        <img src="../../assets/img/items/{{selectedItem?.itemSprite}}.png" alt="">
+      </div>
+      <div class="itemName">
+        {{ selectedItem?.itemType === 'equipment' ? equipmentTitle(selectedItem) : selectedItem?.itemName}}
+      </div>
+      <hr>
+      <div class="itemDescription">
+        {{selectedItem?.itemDescription}}
+      </div>
+      <div *ngIf="selectedItem?.itemType !== 'equipment'" class="itemQuantity">
+        <span>{{selectedItem?.quantity}}x</span>
+      </div>
+      <div *ngIf="selectedItem?.itemType === 'equipment'" class="itemRarity {{selectedItem?.rarity}}">
+        <span>{{selectedItem?.rarity}}</span>
+      </div>
+      <div *ngIf="selectedItem?.itemType === 'equipment'" class="itemEquipment">
+        <div *ngFor="let pokemonFromList of pokemonService.getPokemonList()" class="allowedPokemons" (click)="equip(pokemonFromList)" title="Equip">
+          <div *ngIf="allowedForEquip(pokemonFromList)" class="pokemonAllowed">
+            <img *ngIf="pokemonFromList.id != null" src="{{pokemonUrlBase}}{{pokemonFromList.id}}.png" alt="">
+            <div *ngIf="pokemonFromList.id != null" class="pokeLevel"><span>{{pokemonFromList.level}}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="optionsContainer">
+    <div class="closeBtn" style="top: -4vh; right: 0; left: 0" (click)="closeMenu()"><i class="material-icons">clear</i></div>
+    <div class="optionsMenu">
+      <div class="menuItem selected" (click)="changeMenuView($event, 'interface')"><i class="material-icons">sports_esports</i></div>
+      <div class="menuItem" (click)="changeMenuView($event,'video')"><i class="material-icons">videocam</i></div>
+      <div class="menuItem" (click)="changeMenuView($event,'sound')"><i class="material-icons">headset_mic</i></div>
+    </div>
+    <div *ngIf="menuView === 'interface'" class="optionsContent">
+      Comming Soon
+    </div>
+    <div *ngIf="menuView === 'video'" class="optionsContent">
+      Comming Soon
+    </div>
+    <div *ngIf="menuView === 'sound'" class="optionsContent">
+      <label class="container">Play Music
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="mapContainer">
+    <div class="closeBtn" style="top: 2vh; right: 2vh" (click)="closeMap()"><i class="material-icons">clear</i></div>
+    <img id="macroMap" src="./../../assets/img/macroMap.jpg" alt="">
+    <img id="marker"  src="./../../assets/img/marker.png" alt="">
+  </div>
+
+</div>

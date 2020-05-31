@@ -1,0 +1,46 @@
+.logChatContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    height: 32vh;
+    width: 30vh;
+    .logChatContent {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 4vh);
+        height: calc(100% - 8vh);
+        padding: 2vh;
+        background-color: #0000004b;
+        overflow: auto;
+        span {
+            color: white;
+            font-size: 12px;
+            margin-bottom: 0.5vh;
+            &.bigInfo {
+                color: #9797bf;
+                font-size: 14px;
+            }
+            &.error {
+                color: #e87878;
+            }
+            &.rare {
+                color: #e0cf52;
+            }
+            &.mapChange {
+                color: #86c198;
+            }
+            &.action {
+                color: #b24cc0;
+            }
+        }
+    }
+    .logChatInput {
+        width: calc(100% - 3vh);
+        font-size: 15px;
+        height: 3vh;
+        background-color: #999ea2;
+        border: 0px;
+        padding: 0 1.5vh;
+    }
+}

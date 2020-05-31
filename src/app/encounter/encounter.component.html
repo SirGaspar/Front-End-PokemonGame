@@ -1,0 +1,64 @@
+<div class="overflow"></div>
+<div class="encounterComponent">
+    <div class="enemyContainer">
+        <div class="enemyInfo">
+            <span class="name">{{encounterService.getEnemyPokemon()?.name}}, lv.{{encounterService.getEnemyPokemon()?.level}}</span>
+            <div class="hpBarContainer">
+                <div class="hpBar base"></div>
+                <div class="hpBar" [style.width]="((encounterService.getEnemyPokemon().hp/encounterService.getEnemyPokemon().maxHP)*100) + '%'"></div>
+            </div>
+        </div>
+        <!-- ball for animation -->
+        <i class="ball pokeball"></i>
+        <img id="enconteredPokemon" src="{{enemyPokemonUrlBase}}{{encounterService.getEnemyPokemon().spriteName}}.gif" alt="">
+    </div>
+    <div class="userContainer">
+        <div class="userInfo">
+            <span class="name">{{encounterService.getSelectedPokemon()?.name}}, lv.{{encounterService.getSelectedPokemon()?.level}}</span>
+            <div class="hpBarContainer">
+                <div class="hpBar base"></div>
+                <div class="hpBar" [style.width]="((encounterService.getSelectedPokemon().hp/encounterService.getSelectedPokemon().maxHP)*100) + '%'"></div>
+            </div>
+        </div>
+        <img id="selectedPokemon" [class.faint]="encounterService.getSelectedPokemon().hp === 0" src="{{selectedPokemonUrlBase}}{{encounterService.getSelectedPokemon().spriteName}}.gif" alt="">
+    </div>
+    <div *ngIf="showMenu('menu')" class="actionContainer">
+        <div (click)="changeBattleContainerMode('moves')" class="fightBtn"><span>FIGHT</span></div>
+        <div (click)="encounterService.chooseAction('run')" class="runBtn"><span>RUN</span></div>
+    </div>
+    <div *ngIf="showBackBtn()" (click)="changeBattleContainerMode('menu')" class="backBtn">BACK</div>
+    <div *ngIf="showMenu('moves')" class="menuContainer">
+        <div class="movesContent">
+            <div *ngFor="let move of encounterService.getSelectedPokemonMoves()" (click)="encounterService.chooseAction('battle', move)" class="item">
+                <span class="name">{{move.name}}</span>
+                <img class="type" src="./../../assets/img/typesIcon/{{move.type}}.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div *ngIf="encounterService.getSelectedPokemon().hp === 0" class="lostContainer" style="justify-content:flex-end">
+        <span class="title">{{encounterService.getSelectedPokemon()?.name}} was defeated.</span>
+        <span class="subTitle">Select another Pokemon at left menu or Run</span>
+        <div (click)="encounterService.leaveEnconter('lost')" class="runBtn"><span>RUN</span></div>
+    </div>
+    <div *ngIf="encounterService.getEnemyPokemonCaught()" class="lostContainer" style="justify-content:flex-end">
+        <span class="title won">Congratulations! {{encounterService.getEnemyPokemon()?.name}} was caught!</span>
+        <span class="subTitle">Make sure to take care of it.</span>
+        <div (click)="encounterService.leaveEnconter('caught')" class="runBtn"><span>OK</span></div>
+    </div>
+
+    <div *ngIf="encounterService.getEnemyPokemon().hp === 0" class="lootContainer" style="justify-content:flex-end">
+        <span class="title">{{encounterService.getSelectedPokemon()?.name}} defeated {{encounterService.getEnemyPokemon()?.name}} and won:</span>
+        <div class="lootContent">
+            <div class="loot">
+                <span class="number">{{encounterService.getLoot()?.coins}}</span>
+                <img src="./../../assets/img/coinIcon.png" alt="">
+            </div>
+            <div *ngFor="let loot of encounterService.getLoot().totalLoot" class="loot">
+                <span class="number">{{loot.qtd}}</span>
+                <img src="../../assets/img/items/{{backpackService.getItemById(loot.id).itemSprite}}.png" alt="">
+            </div>
+            <div class="backBtn" (click)="encounterService.leaveEnconter('killed')">Take Prize</div>
+        </div>
+    </div>
+</div>
+

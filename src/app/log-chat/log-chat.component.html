@@ -1,0 +1,6 @@
+<div class="logChatContainer">
+  <div class="logChatContent">
+    <span class="{{message.type}}" *ngFor="let message of logMessages">• {{message.message}}</span>
+  </div>
+  <input type="text" class="logChatInput" (keyup.enter)="submitMessage()" [(ngModel)]="message">
+</div>

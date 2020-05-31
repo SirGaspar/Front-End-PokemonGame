@@ -1,0 +1,12 @@
+{
+    "items": {
+        "consumables": [
+            { "id": "c1", "name": "Potion", "sprite": "potion" }
+        ],
+        "balls": [],
+        "miscellaneous": [
+            { "id": "m1", "name": "Pokemon Essense", "sprite": "pokemonEssense" }
+        ],
+        "equipments": []
+    }
+}

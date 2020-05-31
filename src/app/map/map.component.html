@@ -1,0 +1,10 @@
+<div [ngClass]="'mapComponent ' + (devGrid ? 'devGrid' : '')">
+  <div *ngIf="devGrid" class="gridContainer" id="gridDev">
+    <div *ngFor="let square of squareQtd; let i = index" 
+    class="square" id="{{i}}"
+    (click)="selectSquare($event)"></div>
+  </div>
+  <img id="map" src="./../../assets/tilesets/{{mapName}}.png" alt="">
+</div>
+
+

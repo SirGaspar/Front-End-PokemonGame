@@ -1,0 +1,356 @@
+.overflow {
+    background-color: #0000008f;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 30vh;
+}
+.encounterComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image:url("./../../assets/img/battleBackground1.png");
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 40vh;
+    width: 60vh;
+    border: 5px solid white;
+    box-shadow: 0px 0px 15px 0px rgb(0, 0, 0);
+    .enemyContainer {
+        position: absolute;
+        top: 0vh;
+        width: 100%;
+        height: 30vh;
+        .enemyInfo {
+            position: absolute;
+            top: 0vh;
+            right: 0;
+            left: 0;
+            margin: auto;
+            height: 6vh;
+            width: 50%;
+            background-color: #00000047;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        #enconteredPokemon {
+            position: absolute;
+            bottom: 11vh;
+            height: 8vh;
+            left: 41vh;
+            transition: height 0.6s, width 0.6s;
+        }
+    }
+    .userContainer {
+        position: absolute;
+        height: 40vh;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        .userInfo {
+            position: absolute;
+            bottom: 0vh;
+            left: 1vh;
+            height: 6vh;
+            width: 50%;
+            background-color: #00000069;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        #selectedPokemon {
+            position: absolute;
+            bottom: 9vh;
+            width: 7vh;
+            left: 10vh;
+            transition: height 0.6s, width 0.6s;
+            &.faint {
+                filter: grayscale(100%);
+            }
+        }
+    }
+    .userInfo, .enemyContainer {
+        .name {
+            position: absolute;
+            top: 18%;
+            left: 8%;
+            font-size: 1.6vh;
+            font-weight: 500;
+            color: white;
+        }
+    }
+    .hpBarContainer {
+        position: absolute;
+        bottom: 1.5vh;
+        left: 10%;
+        right: 0;
+        width: 80%;
+        .hpBar {
+            height: 0.6vh;
+            background-color: #27f391;
+            margin: auto;
+            border-radius: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 1s;
+            &.base {
+                width: 100%;
+                background-color: grey;
+            }
+            span {
+                color: white;
+                font-weight: 500;
+                position: absolute;
+                right: -25px;
+                top: 0.1vh;
+            }
+        }
+    }
+    .actionContainer, .lostContainer {
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        bottom: 0.3vh;
+        right: 0.3vh;
+        width: 45%;
+        div {
+            width: calc(50% - 4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000a1;
+            height: 5vh;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            &:hover {
+                background-color: #000000b7;
+            }
+        }
+        .title {
+            font-size: 15px;
+            color: #940101;
+            font-weight: 600;
+            margin-right: 1vh;
+            &.won {
+                color: #d1ce00;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            }
+        }
+        .subTitle {
+            font-size: 12px;
+            color: black;
+            font-weight: 600;
+            margin-right: 1vh;
+            margin-bottom: 1vh;
+        }
+    }
+    .backBtn {
+        position: absolute;
+        height: 3vh;
+        width: calc(45%);
+        right: 0.3vh;
+        bottom: calc(11vh + 0.6vh);
+        background-color: #000000a1;
+        color: white;
+        font-size: 12px;
+        font-weight: 550;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+            background-color: #000000c4;
+        }
+    }
+    .lootContainer { 
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        bottom: 4vh;
+        right: 0.5vh;
+        width: 45%;
+        .title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-right: 1vh;
+            margin-bottom: 1vh;
+        }
+        .lootContent {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0.5vh;
+            .number {
+                font-size: 18px;
+                font-weight: 600;
+                margin-right: 0.4vh;
+            }
+            .loot {
+                display: flex;
+                align-items: center;
+                margin-right: 0.4vh;
+                margin-left: 1vh;
+            }
+        }
+        img {
+            width: 3.5vh;
+        }
+        .backBtn {
+            bottom: -3.2vh;
+        }
+    }
+    .menuContainer {
+        position: absolute;
+        bottom: 0.3vh;
+        right: 0.3vh;
+        width: 45%;
+        height: calc(10vh + 8px);
+        background-color: #000000a1;
+        .movesContent, .changePokemonContainer {
+            height: calc(100% - 1vh);
+            width: calc(100% - 1vh);
+            overflow: auto;
+            padding: 0.5vh;
+            .item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 30%;
+                padding: 0 0.5vh;
+                color: white;
+                font-size: 14px;
+                font-weight: 550;
+                cursor: pointer;
+                &:hover {
+                    background-color: #000000a1;
+                }
+                img {
+                    height: 70%;
+                    width: auto;
+                }
+            }
+        }
+        .changePokemonContainer {
+            overflow: unset;
+            display: flex;
+            flex-wrap: wrap;
+            .item {
+                height: 50%;
+                width: calc(33.33% - 1vh);
+                img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+// Pokeball Animation
+
+$buttonShadow: 
+inset 0px 2px 0 rgba(0,0,0,0.3), 
+-4px -8px 4px -1px rgba(255,255,255,0.8);
+
+@mixin pokeball($top: #ED1C1C, $bottom: #FFF, $btnShadow: $buttonShadow ) {
+  
+  width: 20px; height: 20px;
+  border-radius: 100%;
+  border: 1px solid #333;
+  position: absolute; display: inline-block;
+  bottom: 0%; left: -10%;
+  box-shadow: inset -3px 1px 1px rgba(0,0,0,0.2);
+  transition: 0.8s;
+  background: radial-gradient( circle at top center, $top 45%, #555 46%, #555 52%, $bottom 53%);
+  background-size: 200% 100%;
+  background-position: 50%;
+  transform-origin: center; 
+  animation-iteration-count: 1;
+  
+  &:before {
+    content: ""; opacity: 0.3;
+    position: absolute; bottom: -2px; left: 15%;
+    width: 70%; height: 2px;
+    border-radius: 50%; box-shadow: 0 0 2px 1px #000;
+    background: #000; z-index: -1;
+    transform-origin: center -10px; 
+  }
+       
+  &:after {
+    content: "";
+    position: absolute; left: 50%; top: 50%;
+    width: 4px; height: 4px; border-radius: 100%;
+    margin-left: -3px; margin-top: 1px;
+    background: white; border: 1px solid #333;
+    box-shadow: $btnShadow;
+  }
+          
+}
+      
+.pokeball { @include pokeball(); }
+
+$roll: 18deg; $move: 6px; 
+      
+@keyframes pokewobble {
+    20% { transform: rotate(-$roll); margin-left: -$move; }
+    24% { transform: rotate($roll); margin-left: $move; }
+    26%, 50% { transform: rotate(0deg); margin-left: 0px; }
+    52% { transform: rotate(-$roll); margin-left: -$move; }
+    54% { transform: rotate($roll); margin-left: $move; }
+    56% { transform: rotate(0deg); margin-left: 0px; } 
+    82% { margin-top: 0; }
+    83% { margin-top: -3px; }
+    84% { margin-top: 0px; }
+    85% { margin-top: -2px; }
+    88% { margin-top: 0; }
+}
+        
+@keyframes pokeshadow {
+    20% { transform: rotate($roll); } 
+    24% { transform: rotate(-$roll); } 
+    26%, 50% { transform: rotate(0deg); }
+    52% { transform: rotate($roll); }
+    54% { transform: rotate(-$roll);  }
+    56% { transform: rotate(0deg); }
+}
+                  
+@keyframes pokeglow {
+  60% { background: white; box-shadow: $buttonShadow }
+  68% { background: rgb(255,95,50); box-shadow: $buttonShadow, 0 0 4px 2px rgb(255,95,50); }
+  80% { background: white; box-shadow: $buttonShadow; }          
+}
+
+.ball.throw {
+    transition: 0.8s;
+    bottom: 12vh; left: 42vh;
+}
+.ball.shake {
+    animation: pokewobble 5s ease forwards;
+    &:before {
+        animation: pokeshadow 5s ease forwards;
+    }
+}
+.ball.pokeglow {
+    &:after {
+        animation: pokeglow 5s ease forwards;
+    }
+}
+.ball.broken {
+    transition: 0.8;
+    visibility: hidden; opacity: 0;
+}
+
+}

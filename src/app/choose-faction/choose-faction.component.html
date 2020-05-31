@@ -1,0 +1,50 @@
+<div class="chooseFactionContainer">
+    <div class="chooseFactionContent">
+        <div class="faction travelers" (click)="chooseFaction($event, 'travelers')">
+            <span (click)="cancelFaction()" class="changeFaction"><span class="material-icons">keyboard_arrow_left</span>Change Faction</span>
+            <span class="title">Travelers</span>
+            <img src="../../assets/img/travelers.png" alt="">
+            <div class="text">Passionate about nature, with free spirit and warm heart. You love Pokemon and live with them peacefully, discovering the world together.</div>
+            <div class="subTitle">Start with an grass pokemon.</div>
+            <div class="subTitle">Born in FrigusTown.</div>
+        </div>
+        <div class="faction hunters" (click)="chooseFaction($event, 'hunters')">
+            <span (click)="cancelFaction()" class="changeFaction"><span class="material-icons">keyboard_arrow_left</span>Change Faction</span>
+            <span class="title">Hunters</span>
+            <img src="../../assets/img/hunters.png" alt="">
+            <div class="text">Determined to capture and tame the Pokemon, you seek power with energy and vigor, with no time for weakness.</div>
+            <div class="subTitle">Start with an fire pokemon.</div>
+            <div class="subTitle">Born in CalidiTown.</div>
+        </div>
+        <div class="faction strategists" (click)="chooseFaction($event, 'strategists')">
+            <span (click)="cancelFaction()" class="changeFaction"><span class="material-icons">keyboard_arrow_left</span>Change Faction</span>
+            <span class="title">Strategists</span>
+            <img src="../../assets/img/strategists.png" alt="">
+            <div class="text">You often see Pokemon as numbers, focused, looking for the most perfect ones. Knowledge can win any battle.</div>
+            <div class="subTitle">Start with an water pokemon.</div>
+            <div class="subTitle">Born in LitoreTown.</div>
+        </div>
+    </div>
+    <div class="pokemonChooseContainer hidden">
+        <div class="pokemonChooseContent">
+            <div id="{{pokemon}}" class="pokemonCard" *ngFor="let pokemon of selectedPokemonList" (click)="choosePokemon(pokemon)">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon}}.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="playerCreationContainer hidden">
+        <div class="playerCreationContent">
+            <span class="errorMessage">{{errorMessage}}</span>
+            <input type="text" placeholder="Character Name" [(ngModel)]="characterName">
+            <span class="label">Which genre do you want to play with?</span>
+            <div class="genderContainer">
+                <span (click)="changeGender()" class="material-icons">keyboard_arrow_left</span>
+                <div class="genderImg">
+                    <img src="../../assets/img/{{faction}}-{{playerGender}}.png" alt="">
+                </div>
+                <span (click)="changeGender()" class="material-icons">keyboard_arrow_right</span>
+            </div>
+            <span (click)="finishRegistration()" class="registerButton">START PLAY</span>
+        </div>
+    </div>
+</div>
